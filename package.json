@@ -1,0 +1,13 @@
+{
+  "name": "aura-skincare-voice-agent-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root workspace runner for Aura Skincare AI Voice Agent",
+  "scripts": {
+    "start:backend": "npm --prefix backend start",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "npm --prefix backend test"
+  }
+}

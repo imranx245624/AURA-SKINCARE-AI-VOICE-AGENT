@@ -1,0 +1,22 @@
+{
+  "name": "aura-skincare-voice-agent-backend",
+  "version": "1.0.0",
+  "description": "Backend for Aura Skincare AI Voice Agent using Express and Google Gen AI SDK",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "test:diagnostic": "node test/diagnostic.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.30.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,224 @@
+.agent-status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Presence Orb */
+.presence-orb-outer {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-smooth);
+}
+
+.presence-orb-inner {
+  width: 74px;
+  height: 74px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary), #3b5f51);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+.avatar-initials {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-inverse);
+  user-select: none;
+}
+
+/* Orb States */
+.orb-idle {
+  background: var(--bg-surface-subtle);
+  border: 2px dashed var(--border-strong);
+}
+
+.orb-listening {
+  background: rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
+  animation: pulseSubtle 1.8s infinite ease-in-out;
+}
+
+.orb-thinking {
+  background: rgba(245, 158, 11, 0.15);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.35);
+}
+
+.orb-speaking {
+  background: rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 28px rgba(99, 102, 241, 0.35);
+}
+
+.orb-error {
+  background: rgba(239, 68, 68, 0.15);
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.3);
+}
+
+/* Audio Wave Bars */
+.audio-wave-bars {
+  position: absolute;
+  bottom: -4px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+  z-index: 3;
+}
+
+.wave-bar {
+  width: 4px;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  animation: waveBar 0.9s infinite ease-in-out;
+}
+
+.bar-1 { animation-delay: 0.1s; }
+.bar-2 { animation-delay: 0.25s; }
+.bar-3 { animation-delay: 0.05s; }
+.bar-4 { animation-delay: 0.35s; }
+.bar-5 { animation-delay: 0.15s; }
+
+/* Thinking Orbit */
+.thinking-orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+.orbit-dot {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--status-thinking);
+  box-shadow: 0 0 8px var(--status-thinking);
+}
+
+/* Agent Info */
+.agent-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.agent-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agent-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.brand-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 8px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+.agent-role {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+/* Status Pill & Subtext */
+.status-badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all var(--transition-normal);
+}
+
+.status-badge-idle {
+  background: var(--bg-surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.status-badge-listening {
+  background: var(--status-listening-bg);
+  color: #065F46;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.status-badge-thinking {
+  background: var(--status-thinking-bg);
+  color: #92400E;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.status-badge-speaking {
+  background: var(--status-speaking-bg);
+  color: #3730A3;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.status-badge-error {
+  background: var(--status-error-bg);
+  color: #991B1B;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.status-subtext {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  max-width: 280px;
+  line-height: 1.4;
+}
