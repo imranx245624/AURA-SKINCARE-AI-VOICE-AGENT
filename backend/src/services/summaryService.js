@@ -27,6 +27,26 @@ export async function generateCallSummary(transcript) {
     .map((m) => `${m.role === 'user' ? 'Customer' : 'Agent (Aria)'}: ${m.text}`)
     .join('\n');
 
+
+  // Extract order IDs deterministically from the transcript.
+  // This handles both "ORD-101" and natural speech like "order 101".
+  const normalizedTranscript = transcriptText.toUpperCase();
+
+  const orderMatches = [
+    ...normalizedTranscript.matchAll(/\bORD[\s-]*(10[1-3])\b/g),
+    ...normalizedTranscript.matchAll(/\bORDER\s+(10[1-3])\b/g)
+  ];
+
+  const detectedOrderIds = [
+    ...new Set(
+      orderMatches.map((match) => `ORD-${match[1]}`)
+    )
+  ];
+
+  const detectedOrderId =
+    detectedOrderIds.length === 1 ? detectedOrderIds[0] : null;
+
+
   // Detect if conversation contained errors or failures
   const hasError =
     transcript.some((m) => m.isError) ||
@@ -94,12 +114,18 @@ Extract and return the structured outcome with the exact following fields:
     }
 
     // Validate fields
+
     return {
       customer_intent: parsed.customer_intent || 'GENERAL_INQUIRY',
-      order_id: parsed.order_id && parsed.order_id !== 'null' ? parsed.order_id : null,
+      order_id: detectedOrderId || parsed.order_id || null,
       resolution_status: status,
-      call_summary: parsed.call_summary || (hasError ? 'Call could not be completed due to system error.' : 'Call completed.')
+      call_summary:
+        parsed.call_summary ||
+        (hasError
+          ? 'Call could not be completed due to system error.'
+          : 'Call completed.')
     };
+
   } catch (error) {
     // If Gemini fails or API key is missing, provide a safe heuristic fallback
     console.warn('Summary generation via Gemini failed or fell back:', error.message);
